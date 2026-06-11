@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul Belajar Ekonomi Kelas X — ASAT Semester 2</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap');
+
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --card: #22263a;
+    --accent: #6c63ff;
+    --accent2: #ff6b6b;
+    --accent3: #43e97b;
+    --accent4: #f7971e;
+    --accent5: #38f9d7;
+    --text: #e8eaf6;
+    --muted: #8b90b0;
+    --border: #2e3250;
+    --highlight: #ffe066;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  #nav {
+    position: fixed; top: 0; left: 0; width: 260px; height: 100vh;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    z-index: 100;
+    padding: 24px 0 40px;
+    transition: transform .3s;
+  }
+  #nav h2 {
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted); padding: 0 20px 16px; font-weight: 700;
+  }
+  .nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 20px; cursor: pointer; border-radius: 0;
+    font-size: 13px; color: var(--muted); font-weight: 500;
+    border-left: 3px solid transparent;
+    transition: all .18s;
+  }
+  .nav-item:hover { color: var(--text); background: rgba(108,99,255,.1); }
+  .nav-item.active { color: var(--accent); border-left-color: var(--accent); background: rgba(108,99,255,.12); }
+  .nav-dot {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; flex-shrink: 0;
+  }
+  .nav-progress {
+    margin: 20px; background: var(--card); border-radius: 12px; padding: 14px;
+  }
+  .nav-progress p { font-size: 11px; color: var(--muted); margin-bottom: 8px; }
+  .prog-bar { background: var(--border); border-radius: 4px; height: 6px; }
+  .prog-fill { background: var(--accent); border-radius: 4px; height: 6px; width: 0%; transition: width .5s; }
+  #prog-text { font-size: 13px; font-weight: 700; color: var(--accent); }
+
+  /* ── MAIN ── */
+  #main {
+    margin-left: 260px;
+    padding: 40px 40px 80px;
+    max-width: 900px;
+  }
+
+  /* ── PAGE ── */
+  .page { display: none; animation: fadeIn .3s ease; }
+  .page.active { display: block; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+
+  /* ── HOME ── */
+  .home-hero {
+    background: linear-gradient(135deg, #1a1d27 0%, #22263a 100%);
+    border: 1px solid var(--border);
+    border-radius: 20px; padding: 48px;
+    margin-bottom: 32px; position: relative; overflow: hidden;
+  }
+  .home-hero::before {
+    content: '📊'; position: absolute; right: 40px; top: 30px;
+    font-size: 80px; opacity: .15;
+  }
+  .home-hero h1 {
+    font-size: 36px; font-weight: 800; line-height: 1.2;
+    background: linear-gradient(135deg, var(--accent), var(--accent5));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+  }
+  .home-hero p { color: var(--muted); font-size: 15px; max-width: 480px; line-height: 1.6; }
+  .badge-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+  .badge {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 6px 14px;
+    font-size: 12px; font-weight: 600; color: var(--muted);
+  }
+  .topic-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+  }
+  .topic-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px; cursor: pointer;
+    transition: all .2s; position: relative; overflow: hidden;
+  }
+  .topic-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+  .topic-card .tc-icon { font-size: 28px; margin-bottom: 10px; }
+  .topic-card .tc-num { font-size: 11px; color: var(--muted); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+  .topic-card h3 { font-size: 14px; font-weight: 700; margin-top: 4px; line-height: 1.3; }
+  .topic-card .tc-count { font-size: 11px; color: var(--muted); margin-top: 6px; }
+  .topic-card .tc-bar { position: absolute; bottom: 0; left: 0; height: 3px; width: 100%; }
+
+  /* ── SECTION HEADER ── */
+  .sec-header {
+    display: flex; align-items: flex-start; gap: 16px;
+    margin-bottom: 32px; padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sec-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; flex-shrink: 0;
+  }
+  .sec-header h2 { font-size: 26px; font-weight: 800; }
+  .sec-header p { color: var(--muted); font-size: 14px; margin-top: 4px; }
+  .kisi-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(108,99,255,.15); border: 1px solid rgba(108,99,255,.3);
+    color: #a09fff; padding: 4px 12px; border-radius: 20px;
+    font-size: 11px; font-weight: 600; margin-top: 8px;
+  }
+
+  /* ── CONTENT BLOCKS ── */
+  .content-block { margin-bottom: 28px; }
+  .block-title {
+    font-size: 16px; font-weight: 700; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .block-title::before {
+    content: ''; display: block; width: 4px; height: 20px;
+    border-radius: 2px; background: var(--accent);
+  }
+
+  /* ── CARDS / BOXES ── */
+  .info-box {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px; margin-bottom: 14px;
+  }
+  .info-box h4 { font-size: 14px; font-weight: 700; margin-bottom: 8px; color: var(--highlight); }
+  .info-box p, .info-box li { font-size: 14px; line-height: 1.7; color: #cdd0e8; }
+  .info-box ul { padding-left: 18px; }
+  .info-box li { margin-bottom: 4px; }
+
+  .def-box {
+    background: linear-gradient(135deg, rgba(108,99,255,.1), rgba(56,249,215,.05));
+    border: 1px solid rgba(108,99,255,.25);
+    border-radius: 14px; padding: 18px 20px; margin-bottom: 14px;
+  }
+  .def-box .def-label {
+    font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--accent); font-weight: 700; margin-bottom: 6px;
+  }
+  .def-box p { font-size: 15px; line-height: 1.6; font-family: 'Lora', serif; color: var(--text); }
+
+  .tip-box {
+    background: rgba(255,224,102,.06); border: 1px solid rgba(255,224,102,.2);
+    border-radius: 12px; padding: 14px 18px; margin-bottom: 14px;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .tip-box .tip-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+  .tip-box p { font-size: 13px; line-height: 1.6; color: #ffe0a0; }
+
+  /* ── COMPARISON TABLE ── */
+  .comp-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 14px; }
+  .comp-table th {
+    background: var(--card); color: var(--accent); font-weight: 700;
+    padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border);
+  }
+  .comp-table td {
+    padding: 9px 14px; border-bottom: 1px solid rgba(46,50,80,.5);
+    color: #cdd0e8; vertical-align: top; line-height: 1.5;
+  }
+  .comp-table tr:hover td { background: rgba(108,99,255,.04); }
+
+  /* ── FLASHCARD ── */
+  .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 12px; margin-bottom: 20px; }
+  .flashcard {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px; cursor: pointer;
+    transition: all .2s; position: relative;
+  }
+  .flashcard:hover { border-color: var(--accent); transform: scale(1.02); }
+  .flashcard .fc-q { font-size: 13px; font-weight: 600; margin-bottom: 8px; color: var(--text); }
+  .flashcard .fc-a {
+    font-size: 12px; color: var(--muted); line-height: 1.5;
+    max-height: 0; overflow: hidden; transition: max-height .3s;
+  }
+  .flashcard.open .fc-a { max-height: 200px; }
+  .flashcard .fc-hint { font-size: 10px; color: var(--accent); font-weight: 700; letter-spacing: .05em; }
+
+  /* ── FORMULA BOX ── */
+  .formula-box {
+    background: #0d1120; border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px; margin-bottom: 14px;
+    font-family: 'Courier New', monospace;
+  }
+  .formula-box .f-label { font-size: 11px; color: var(--accent3); font-weight: 700; margin-bottom: 8px; letter-spacing: .08em; }
+  .formula-box .f-eq { font-size: 17px; color: var(--highlight); font-weight: 600; }
+  .formula-box .f-note { font-size: 12px; color: var(--muted); margin-top: 8px; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+  /* ── ACCORDION ── */
+  .accordion { margin-bottom: 10px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+  .acc-head {
+    background: var(--card); padding: 14px 18px; cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 14px; font-weight: 600; user-select: none;
+    transition: background .2s;
+  }
+  .acc-head:hover { background: #2a2e45; }
+  .acc-head .arr { transition: transform .25s; color: var(--muted); }
+  .accordion.open .acc-head .arr { transform: rotate(180deg); }
+  .acc-body {
+    max-height: 0; overflow: hidden; background: #1c1f30;
+    transition: max-height .35s ease;
+  }
+  .accordion.open .acc-body { max-height: 900px; }
+  .acc-body-inner { padding: 16px 18px; font-size: 13px; line-height: 1.7; color: #cdd0e8; }
+  .acc-body-inner ul { padding-left: 18px; }
+  .acc-body-inner li { margin-bottom: 4px; }
+
+  /* ── NAV BUTTONS ── */
+  .nav-btns {
+    display: flex; gap: 12px; margin-top: 36px; padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    padding: 12px 24px; border-radius: 10px; font-size: 14px; font-weight: 700;
+    cursor: pointer; border: none; transition: all .2s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #8078ff; }
+  .btn-ghost { background: var(--card); color: var(--text); border: 1px solid var(--border); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── CHECKLIST ── */
+  .checklist { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+  .check-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: var(--card); border-radius: 10px; padding: 12px 14px;
+    border: 1px solid var(--border); cursor: pointer; transition: all .2s;
+    font-size: 13px; line-height: 1.5;
+  }
+  .check-item:hover { border-color: var(--accent3); }
+  .check-item input { accent-color: var(--accent3); width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; cursor: pointer; }
+  .check-item label { cursor: pointer; flex: 1; }
+  .check-item.checked label { text-decoration: line-through; color: var(--muted); }
+
+  /* ── COLORS by topic ── */
+  .c1 { background: rgba(108,99,255,.15); color: #a09fff; }
+  .c2 { background: rgba(255,107,107,.15); color: #ff9a9a; }
+  .c3 { background: rgba(67,233,123,.15); color: #43e97b; }
+  .c4 { background: rgba(247,151,30,.15); color: #f7c56a; }
+  .c5 { background: rgba(56,249,215,.15); color: #38f9d7; }
+  .c6 { background: rgba(240,147,251,.15); color: #f093fb; }
+  .c7 { background: rgba(79,172,254,.15); color: #4facfe; }
+
+  .bar1 { background: linear-gradient(90deg, #6c63ff, #a09fff); }
+  .bar2 { background: linear-gradient(90deg, #ff6b6b, #ff9a9a); }
+  .bar3 { background: linear-gradient(90deg, #43e97b, #38f9d7); }
+  .bar4 { background: linear-gradient(90deg, #f7971e, #ffd200); }
+  .bar5 { background: linear-gradient(90deg, #38f9d7, #4facfe); }
+  .bar6 { background: linear-gradient(90deg, #f093fb, #f5576c); }
+  .bar7 { background: linear-gradient(90deg, #4facfe, #00f2fe); }
+
+  /* ── MOBILE TOGGLE ── */
+  #menu-toggle {
+    display: none; position: fixed; top: 14px; left: 14px; z-index: 200;
+    background: var(--accent); border: none; color: #fff;
+    width: 38px; height: 38px; border-radius: 10px; font-size: 18px; cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    #menu-toggle { display: flex; align-items: center; justify-content: center; }
+    #nav { transform: translateX(-100%); }
+    #nav.open { transform: translateX(0); }
+    #main { margin-left: 0; padding: 20px 16px 80px; }
+    .home-hero { padding: 28px 20px; }
+    .home-hero h1 { font-size: 26px; }
+  }
+
+  /* ── HIGHLIGHT SPANS ── */
+  .hl { color: var(--highlight); font-weight: 700; }
+  .hl-g { color: var(--accent3); font-weight: 700; }
+  .hl-r { color: var(--accent2); font-weight: 700; }
+  .hl-p { color: #a09fff; font-weight: 700; }
+
+  /* ── KURVA VISUAL ── */
+  .kurva-box {
+    background: #0d1120; border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px; margin-bottom: 14px; text-align: center;
+  }
+  .kurva-box svg { max-width: 100%; height: auto; }
+
+  /* ── PILGAN PRACTICE ── */
+  .quiz-section { margin-top: 28px; }
+  .quiz-q {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px; margin-bottom: 14px;
+  }
+  .quiz-q .q-num { font-size: 11px; color: var(--accent); font-weight: 700; letter-spacing: .08em; margin-bottom: 8px; }
+  .quiz-q .q-text { font-size: 14px; font-weight: 600; margin-bottom: 14px; line-height: 1.5; }
+  .quiz-opt {
+    padding: 10px 14px; border-radius: 8px; margin-bottom: 6px;
+    border: 1px solid var(--border); cursor: pointer; font-size: 13px;
+    transition: all .15s; color: #cdd0e8;
+  }
+  .quiz-opt:hover { border-color: var(--accent); color: var(--text); }
+  .quiz-opt.correct { background: rgba(67,233,123,.15); border-color: var(--accent3); color: var(--accent3); }
+  .quiz-opt.wrong { background: rgba(255,107,107,.1); border-color: var(--accent2); color: var(--accent2); }
+  .quiz-explanation {
+    margin-top: 10px; padding: 10px 14px; background: rgba(108,99,255,.08);
+    border-radius: 8px; font-size: 12px; color: var(--muted); display: none; line-height: 1.6;
+  }
+  .quiz-explanation.show { display: block; }
+
+  .tag-soal {
+    display: inline-block; background: rgba(255,107,107,.15);
+    color: #ff9a9a; padding: 3px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 600; margin-bottom: 12px;
+  }
+</style>
+</head>
+<body>
+
+<button id="menu-toggle" onclick="toggleNav()">☰</button>
+
+<!-- SIDEBAR NAV -->
+<nav id="nav">
+  <h2>Materi ASAT 2025/2026</h2>
+  <div class="nav-progress">
+    <p>Progress Belajar</p>
+    <div class="prog-bar"><div class="prog-fill" id="prog-fill"></div></div>
+    <span id="prog-text">0 / 7 selesai</span>
+  </div>
+  <div class="nav-item active" onclick="showPage('home', this)">
+    <div class="nav-dot" style="background:#2e3250">🏠</div> Beranda
+  </div>
+  <div class="nav-item" onclick="showPage('p1', this)">
+    <div class="nav-dot c1">1</div> Permintaan
+  </div>
+  <div class="nav-item" onclick="showPage('p2', this)">
+    <div class="nav-dot c2">2</div> Penawaran
+  </div>
+  <div class="nav-item" onclick="showPage('p3', this)">
+    <div class="nav-dot c3">3</div> Keseimbangan Pasar
+  </div>
+  <div class="nav-item" onclick="showPage('p4', this)">
+    <div class="nav-dot c4">4</div> Jenis-Jenis Pasar
+  </div>
+  <div class="nav-item" onclick="showPage('p5', this)">
+    <div class="nav-dot c5">5</div> Perbankan
+  </div>
+  <div class="nav-item" onclick="showPage('p6', this)">
+    <div class="nav-dot c6">6</div> Sistem Pembayaran
+  </div>
+  <div class="nav-item" onclick="showPage('p7', this)">
+    <div class="nav-dot c7">7</div> IKNB & OJK
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main id="main">
+
+  <!-- ══════════════════════ HOME ══════════════════════ -->
+  <div class="page active" id="page-home">
+    <div class="home-hero">
+      <h1>Modul Ekonomi<br>Kelas X Semester 2</h1>
+      <p>Panduan belajar lengkap sesuai kisi-kisi ASAT 2025/2026. Total 35 soal dari 7 topik utama.</p>
+      <div class="badge-row">
+        <span class="badge">📋 35 Soal</span>
+        <span class="badge">📚 7 Topik</span>
+        <span class="badge">🎯 Fase E</span>
+        <span class="badge">⏱ Semester 2</span>
+      </div>
+    </div>
+    <p style="font-size:13px; color:var(--muted); margin-bottom:16px; font-weight:600; text-transform:uppercase; letter-spacing:.06em;">Pilih Topik</p>
+    <div class="topic-grid">
+      <div class="topic-card" onclick="showPage('p1', null)">
+        <div class="tc-icon">📉</div>
+        <div class="tc-num">Topik 01</div>
+        <h3>Permintaan</h3>
+        <p class="tc-count">~12 soal</p>
+        <div class="tc-bar bar1"></div>
+      </div>
+      <div class="topic-card" onclick="showPage('p2', null)">
+        <div class="tc-icon">📈</div>
+        <div class="tc-num">Topik 02</div>
+        <h3>Penawaran</h3>
+        <p class="tc-count">inkl. kurva & fungsi</p>
+        <div class="tc-bar bar2"></div>
+      </div>
+      <div class="topic-card" onclick="showPage('p3', null)">
+        <div class="tc-icon">⚖️</div>
+        <div class="tc-num">Topik 03</div>
+        <h3>Keseimbangan Pasar</h3>
+        <p class="tc-count">2 soal</p>
+        <div class="tc-bar bar3"></div>
+      </div>
+      <div class="topic-card" onclick="showPage('p4', null)">
+        <div class="tc-icon">🏪</div>
+        <div class="tc-num">Topik 04</div>
+        <h3>Jenis-Jenis Pasar</h3>
+        <p class="tc-count">5 soal</p>
+        <div class="tc-bar bar4"></div>
+      </div>
+      <div class="topic-card" onclick="showPage('p5', null)">
+        <div class="tc-icon">🏦</div>
+        <div class="tc-num">Topik 05</div>
+        <h3>Perbankan</h3>
+        <p class="tc-count">6 soal</p>
+        <div class="tc-bar bar5"></div>
+      </div>
+      <div class="topic-card" onclick="showPage('p6', null)">
+        <div class="tc-icon">💳</div>
+        <div class="tc-num">Topik 06</div>
+        <h3>Sistem Pembayaran</h3>
+        <p class="tc-count">3 soal</p>
+        <div class="tc-bar bar6"></div>
+      </div>
+      <div class="topic-card" onclick="showPage('p7', null)">
+        <div class="tc-icon">🏛️</div>
+        <div class="tc-num">Topik 07</div>
+        <h3>IKNB & OJK</h3>
+        <p class="tc-count">7 soal</p>
+        <div class="tc-bar bar7"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ PAGE 1: PERMINTAAN ══════════════════════ -->
+  <div class="page" id="page-p1">
+    <div class="sec-header">
+      <div class="sec-icon c1">📉</div>
+      <div>
+        <h2>Permintaan <span style="font-size:14px; color:var(--muted)">(Demand)</span></h2>
+        <p>Jenis permintaan · Faktor-faktor · Kurva · Fungsi matematis</p>
+        <div class="kisi-tag">🎯 Kisi-kisi: ~12 soal mencakup jenis, faktor, kurva, dan fungsi</div>
+      </div>
+    </div>
+
+    <!-- DEFINISI -->
+    <div class="content-block">
+      <div class="block-title">Definisi</div>
+      <div class="def-box">
+        <div class="def-label">📖 Definisi</div>
+        <p><strong>Permintaan</strong> adalah jumlah barang atau jasa yang <em>bersedia dan mampu</em> dibeli oleh konsumen pada berbagai tingkat harga dalam periode tertentu, dengan asumsi faktor lain tetap (<em>ceteris paribus</em>).</p>
+      </div>
+      <div class="tip-box">
+        <div class="tip-icon">⚡</div>
+        <p><strong>Kunci hafalan:</strong> Permintaan = KEINGINAN + KEMAMPUAN beli. Jika hanya mau tapi tidak mampu, itu bukan permintaan efektif!</p>
+      </div>
+    </div>
+
+    <!-- JENIS PERMINTAAN -->
+    <div class="content-block">
+      <div class="block-title">Jenis-Jenis Permintaan</div>
+      <div class="flashcard-grid">
+        <div class="flashcard" onclick="toggleCard(this)">
+          <div class="fc-hint">TAP UNTUK LIHAT ▾</div>
+          <div class="fc-q">✅ Permintaan Efektif</div>
+          <div class="fc-a">Permintaan yang disertai kemampuan membayar. Contoh: Andi ingin membeli laptop dan punya uang cukup.</div>
+        </div>
+        <div class="flashcard" onclick="toggleCard(this)">
+          <div class="fc-hint">TAP UNTUK LIHAT ▾</div>
+          <div class="fc-q">💭 Permintaan Potensial</div>
+          <div class="fc-a">Permintaan yang disertai kemampuan membayar tapi belum dilaksanakan. Contoh: Punya uang untuk beli mobil, tapi belum beli.</div>
+        </div>
+        <div class="flashcard" onclick="toggleCard(this)">
+          <div class="fc-hint">TAP UNTUK LIHAT ▾</div>
+          <div class="fc-q">💭 Permintaan Absolut</div>
+          <div class="fc-a">Permintaan yang tidak disertai kemampuan membayar. Hanya keinginan tanpa daya beli.</div>
+        </div>
+        <div class="flashcard" onclick="toggleCard(this)">
+          <div class="fc-hint">TAP UNTUK LIHAT ▾</div>
+          <div class="fc-q">👤 Permintaan Individu</div>
+          <div class="fc-a">Permintaan dari satu orang konsumen untuk suatu barang.</div>
+        </div>
+        <div class="flashcard" onclick="toggleCard(this)">
+          <div class="fc-hint">TAP UNTUK LIHAT ▾</div>
+          <div class="fc-q">👥 Permintaan Pasar</div>
+          <div class="fc-a">Penjumlahan seluruh permintaan individu di pasar. Kurva permintaan pasar = horizontal sum dari kurva individu.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HUKUM PERMINTAAN -->
+    <div class="content-block">
+      <div class="block-title">Hukum Permintaan</div>
+      <div class="def-box">
+        <div class="def-label">⚖️ Hukum</div>
+        <p><em>"Apabila harga suatu barang naik, jumlah yang diminta akan turun; dan apabila harga turun, jumlah yang diminta akan naik — ceteris paribus."</em></p>
+      </div>
+      <div class="kurva-box">
+        <svg viewBox="0 0 320 240" width="320" height="240">
+          <defs><marker id="arr1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#6c63ff"/></marker></defs>
+          <!-- axes -->
+          <line x1="50" y1="200" x2="290" y2="200" stroke="#4facfe" stroke-width="2" marker-end="url(#arr1)"/>
+          <line x1="50" y1="200" x2="50" y2="20" stroke="#4facfe" stroke-width="2" marker-end="url(#arr1)"/>
+          <!-- demand curve -->
+          <path d="M70,40 Q160,130 260,190" fill="none" stroke="#6c63ff" stroke-width="3"/>
+          <!-- labels -->
+          <text x="270" y="215" fill="#8b90b0" font-size="12" font-family="sans-serif">Q</text>
+          <text x="30" y="18" fill="#8b90b0" font-size="12" font-family="sans-serif">P</text>
+          <text x="200" y="120" fill="#a09fff" font-size="13" font-weight="bold" font-family="sans-serif">D</text>
+          <!-- annotation -->
+          <text x="60" y="165" fill="#ff9a9a" font-size="10" font-family="sans-serif">P↓ → Q↑</text>
+          <text x="155" y="80" fill="#ff9a9a" font-size="10" font-family="sans-serif">P↑ → Q↓</text>
+          <!-- arrows on curve -->
+          <path d="M90,55 L80,100" stroke="#ffe066" stroke-width="1.5" marker-end="url(#arr1)"/>
+        </svg>
+        <p style="font-size:12px; color:var(--muted); margin-top:8px">Kurva Permintaan (D) — miring ke kiri bawah (slope negatif)</p>
+      </div>
+    </div>
+
+    <!-- FAKTOR -->
+    <div class="content-block">
+      <div class="block-title">Faktor-Faktor yang Mempengaruhi Permintaan</div>
+      <p style="font-size:13px; color:var(--muted); margin-bottom:12px">Ingat singkatan: <span class="hl">PHISTEN</span></p>
+      <table class="comp-table">
+        <tr><th>Faktor</th><th>Penjelasan</th><th>Efek pada Kurva</th></tr>
+        <tr><td><span class="hl">P</span>endapatan</td><td>Pendapatan naik → permintaan naik (barang normal); turun (barang inferior)</td><td>Geser kanan / kiri</td></tr>
+        <tr><td><span class="hl">H</span>arga barang lain</td><td>Barang substitusi: harga naik → permintaan barang ini naik. Barang komplementer: sebaliknya.</td><td>Geser kanan / kiri</td></tr>
+        <tr><td><span class="hl">I</span>ntensitas kebutuhan</td><td>Musim hujan → permintaan payung naik</td><td>Geser kanan</td></tr>
+        <tr><td><span class="hl">S</span>elera / Preferensi</td><td>Tren viral → permintaan naik drastis</td><td>Geser kanan / kiri</td></tr>
+        <tr><td><span class="hl">T</span>ren ekspektasi</td><td>Jika harga akan naik, beli sekarang → permintaan sekarang naik</td><td>Geser kanan</td></tr>
+        <tr><td><span class="hl">E</span>stimasi jumlah penduduk</td><td>Penduduk bertambah → permintaan bertambah</td><td>Geser kanan</td></tr>
+        <tr><td><span class="hl">N</span>ilai distribusi pendapatan</td><td>Distribusi merata → lebih banyak yang mampu beli</td><td>Geser kanan</td></tr>
+      </table>
+      <div class="tip-box">
+        <div class="tip-icon">💡</div>
+        <p><strong>Pergerakan vs Pergeseran Kurva:</strong> Harga berubah → <span class="hl-g">pergerakan di sepanjang kurva</span>. Faktor non-harga berubah → <span class="hl">pergeseran kurva</span> (kanan = naik, kiri = turun).</p>
+      </div>
+    </div>
+
+    <!-- FUNGSI PERMINTAAN -->
+    <div class="content-block">
+      <div class="block-title">Fungsi Permintaan (Matematis)</div>
+      <div class="formula-box">
+        <div class="f-label">BENTUK UMUM</div>
+        <div class="f-eq">Qd = a − b·P</div>
+        <div class="f-note">atau P = a/b − (1/b)·Qd<br>a = konstanta (jumlah diminta jika P=0), b = koefisien (slope negatif)</div>
+      </div>
+      <div class="info-box">
+        <h4>📝 Cara Menentukan Fungsi dari 2 Data</h4>
+        <p>Gunakan persamaan garis lurus dua titik (P₁,Q₁) dan (P₂,Q₂):</p>
+        <br>
+        <div class="formula-box" style="margin:0">
+          <div class="f-eq">(Q − Q₁)/(Q₂ − Q₁) = (P − P₁)/(P₂ − P₁)</div>
+        </div>
+        <br>
+        <p><strong>Contoh:</strong> Diketahui saat P=1000, Q=50; saat P=2000, Q=30.<br>
+        → (Q−50)/(30−50) = (P−1000)/(2000−1000)<br>
+        → (Q−50)/(−20) = (P−1000)/1000<br>
+        → Q−50 = −20(P−1000)/1000 = −0,02P + 20<br>
+        → <span class="hl">Qd = 70 − 0,02P</span></p>
+      </div>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-section">
+      <div class="block-title">🎯 Latihan Soal</div>
+      <div class="tag-soal">Tipe Soal ASAT</div>
+      <div class="quiz-q">
+        <div class="q-num">SOAL 1</div>
+        <div class="q-text">Ketika harga beras naik, ibu Sari justru membeli lebih banyak beras karena takut harga akan naik terus. Jenis permintaan yang ditunjukkan adalah...</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Spekulatif adalah membeli lebih banyak saat harga naik karena ekspektasi harga akan terus naik.')">A. Permintaan efektif</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, true, 'Benar! Permintaan spekulatif terjadi ketika orang membeli lebih banyak saat harga naik karena ekspektasi harga akan terus naik.')">B. Permintaan spekulatif</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Permintaan absolut adalah permintaan tanpa kemampuan membeli.')">C. Permintaan absolut</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Permintaan potensial adalah mampu beli tapi belum dilakukan.')">D. Permintaan potensial</div>
+        <div class="quiz-explanation"></div>
+      </div>
+      <div class="quiz-q">
+        <div class="q-num">SOAL 2</div>
+        <div class="q-text">Diketahui fungsi permintaan Qd = 100 − 2P. Jika harga (P) = 20, maka jumlah yang diminta adalah...</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Coba hitung: Qd = 100 − 2(20) = 100 − 40 = 60')">A. 40</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, true, 'Benar! Qd = 100 − 2(20) = 100 − 40 = 60')">B. 60</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Coba hitung: Qd = 100 − 2(20) = 100 − 40 = 60')">C. 80</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Coba hitung: Qd = 100 − 2(20) = 100 − 40 = 60')">D. 20</div>
+        <div class="quiz-explanation"></div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-ghost" onclick="showPage('home', null)">← Beranda</button>
+      <button class="btn btn-primary" onclick="showPage('p2', null)">Penawaran →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ PAGE 2: PENAWARAN ══════════════════════ -->
+  <div class="page" id="page-p2">
+    <div class="sec-header">
+      <div class="sec-icon c2">📈</div>
+      <div>
+        <h2>Penawaran <span style="font-size:14px; color:var(--muted)">(Supply)</span></h2>
+        <p>Jenis penawaran · Faktor · Kurva · Fungsi matematis</p>
+        <div class="kisi-tag">🎯 Kisi-kisi: kurva, faktor, fungsi penawaran</div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="block-title">Definisi</div>
+      <div class="def-box">
+        <div class="def-label">📖 Definisi</div>
+        <p><strong>Penawaran</strong> adalah jumlah barang/jasa yang <em>bersedia dan mampu</em> dijual produsen pada berbagai tingkat harga dalam periode tertentu — ceteris paribus.</p>
+      </div>
+    </div>
+
+    <!-- HUKUM PENAWARAN -->
+    <div class="content-block">
+      <div class="block-title">Hukum Penawaran</div>
+      <div class="def-box">
+        <div class="def-label">⚖️ Hukum</div>
+        <p><em>"Apabila harga suatu barang naik, jumlah yang ditawarkan akan bertambah; dan apabila harga turun, jumlah yang ditawarkan akan berkurang — ceteris paribus."</em></p>
+      </div>
+      <div class="kurva-box">
+        <svg viewBox="0 0 320 240" width="320" height="240">
+          <defs><marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#ff6b6b"/></marker></defs>
+          <line x1="50" y1="200" x2="290" y2="200" stroke="#4facfe" stroke-width="2" marker-end="url(#arr2)"/>
+          <line x1="50" y1="200" x2="50" y2="20" stroke="#4facfe" stroke-width="2" marker-end="url(#arr2)"/>
+          <!-- supply curve (slope positif) -->
+          <path d="M70,190 Q150,100 250,40" fill="none" stroke="#ff6b6b" stroke-width="3"/>
+          <text x="270" y="215" fill="#8b90b0" font-size="12" font-family="sans-serif">Q</text>
+          <text x="30" y="18" fill="#8b90b0" font-size="12" font-family="sans-serif">P</text>
+          <text x="220" y="65" fill="#ff9a9a" font-size="13" font-weight="bold" font-family="sans-serif">S</text>
+          <text x="100" y="170" fill="#43e97b" font-size="10" font-family="sans-serif">P↓ → Q↓</text>
+          <text x="170" y="90" fill="#43e97b" font-size="10" font-family="sans-serif">P↑ → Q↑</text>
+        </svg>
+        <p style="font-size:12px; color:var(--muted); margin-top:8px">Kurva Penawaran (S) — miring ke kanan atas (slope positif)</p>
+      </div>
+    </div>
+
+    <!-- FAKTOR PENAWARAN -->
+    <div class="content-block">
+      <div class="block-title">Faktor-Faktor yang Mempengaruhi Penawaran</div>
+      <p style="font-size:13px; color:var(--muted); margin-bottom:12px">Singkatan: <span class="hl">BITHEK</span></p>
+      <table class="comp-table">
+        <tr><th>Faktor</th><th>Penjelasan</th></tr>
+        <tr><td><span class="hl">B</span>iaya produksi</td><td>Biaya naik → penawaran turun (kurva geser kiri)</td></tr>
+        <tr><td><span class="hl">I</span>novasi teknologi</td><td>Teknologi maju → produksi efisien → penawaran naik (geser kanan)</td></tr>
+        <tr><td><span class="hl">T</span>ujuan perusahaan</td><td>Target laba mempengaruhi jumlah yang diproduksi</td></tr>
+        <tr><td><span class="hl">H</span>arga barang lain</td><td>Jika harga barang lain lebih menguntungkan, produsen beralih</td></tr>
+        <tr><td><span class="hl">E</span>kspektasi harga</td><td>Ekspektasi harga naik → produsen tahan stok → penawaran turun</td></tr>
+        <tr><td><span class="hl">K</span>ebijakan pemerintah</td><td>Pajak naik → biaya naik → penawaran turun; subsidi sebaliknya</td></tr>
+      </table>
+    </div>
+
+    <!-- FUNGSI PENAWARAN -->
+    <div class="content-block">
+      <div class="block-title">Fungsi Penawaran</div>
+      <div class="formula-box">
+        <div class="f-label">BENTUK UMUM</div>
+        <div class="f-eq">Qs = −a + b·P</div>
+        <div class="f-note">b > 0 (slope positif), berbeda dengan permintaan yang b negatif.<br>atau P = a/b + (1/b)·Qs</div>
+      </div>
+      <div class="tip-box">
+        <div class="tip-icon">🔑</div>
+        <p><strong>Cara mudah bedakan:</strong> Fungsi Permintaan punya tanda <span class="hl-r">MINUS</span> di depan P → <code>Qd = a − bP</code>. Fungsi Penawaran punya tanda <span class="hl-g">PLUS</span> di depan P → <code>Qs = −a + bP</code>.</p>
+      </div>
+    </div>
+
+    <!-- PERGESERAN KURVA -->
+    <div class="content-block">
+      <div class="block-title">Pergeseran Kurva Penawaran</div>
+      <table class="comp-table">
+        <tr><th>Kejadian</th><th>Arah Geser</th><th>Arti</th></tr>
+        <tr><td>Teknologi canggih</td><td>→ Kanan (S naik)</td><td>Penawaran bertambah</td></tr>
+        <tr><td>Biaya produksi naik</td><td>← Kiri (S turun)</td><td>Penawaran berkurang</td></tr>
+        <tr><td>Bencana alam (gagal panen)</td><td>← Kiri (S turun)</td><td>Penawaran berkurang</td></tr>
+        <tr><td>Subsidi pemerintah</td><td>→ Kanan (S naik)</td><td>Penawaran bertambah</td></tr>
+        <tr><td>Pajak produsen naik</td><td>← Kiri (S turun)</td><td>Penawaran berkurang</td></tr>
+      </table>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-section">
+      <div class="block-title">🎯 Latihan Soal</div>
+      <div class="tag-soal">Tipe Soal ASAT</div>
+      <div class="quiz-q">
+        <div class="q-num">SOAL 1</div>
+        <div class="q-text">Diketahui fungsi penawaran Qs = −20 + 4P. Jika P = 15, maka jumlah yang ditawarkan adalah...</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Qs = −20 + 4(15) = −20 + 60 = 40')">A. 30</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, true, 'Benar! Qs = −20 + 4(15) = −20 + 60 = 40')">B. 40</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Qs = −20 + 4(15) = −20 + 60 = 40')">C. 50</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Qs = −20 + 4(15) = −20 + 60 = 40')">D. 60</div>
+        <div class="quiz-explanation"></div>
+      </div>
+      <div class="quiz-q">
+        <div class="q-num">SOAL 2</div>
+        <div class="q-text">Pemerintah memberikan subsidi kepada petani cabai. Akibatnya kurva penawaran cabai akan...</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Subsidi menurunkan biaya produksi sehingga penawaran meningkat.')">A. Bergeser ke kiri</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, true, 'Benar! Subsidi menurunkan biaya produksi → penawaran naik → kurva geser ke kanan.')">B. Bergeser ke kanan</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Pergerakan di sepanjang kurva hanya terjadi jika harga barang itu sendiri berubah.')">C. Bergerak naik di sepanjang kurva</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Kurva tetap hanya jika tidak ada perubahan sama sekali.')">D. Tetap tidak berubah</div>
+        <div class="quiz-explanation"></div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-ghost" onclick="showPage('p1', null)">← Permintaan</button>
+      <button class="btn btn-primary" onclick="showPage('p3', null)">Keseimbangan →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ PAGE 3: KESEIMBANGAN ══════════════════════ -->
+  <div class="page" id="page-p3">
+    <div class="sec-header">
+      <div class="sec-icon c3">⚖️</div>
+      <div>
+        <h2>Keseimbangan Pasar</h2>
+        <p>Equilibrium price & quantity — harga dan jumlah keseimbangan</p>
+        <div class="kisi-tag">🎯 Kisi-kisi: 2 soal — menentukan harga & jumlah keseimbangan</div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="block-title">Konsep Keseimbangan Pasar</div>
+      <div class="def-box">
+        <div class="def-label">📖 Definisi</div>
+        <p>Keseimbangan pasar terjadi ketika <strong>jumlah yang diminta (Qd) = jumlah yang ditawarkan (Qs)</strong>, menghasilkan harga keseimbangan (P*) dan jumlah keseimbangan (Q*).</p>
+      </div>
+      <div class="kurva-box">
+        <svg viewBox="0 0 320 240" width="320" height="240">
+          <defs><marker id="arr3" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#8b90b0"/></marker></defs>
+          <line x1="40" y1="210" x2="290" y2="210" stroke="#4facfe" stroke-width="1.5" marker-end="url(#arr3)"/>
+          <line x1="40" y1="210" x2="40" y2="20" stroke="#4facfe" stroke-width="1.5" marker-end="url(#arr3)"/>
+          <!-- D curve -->
+          <path d="M60,40 Q155,135 260,205" fill="none" stroke="#6c63ff" stroke-width="2.5"/>
+          <!-- S curve -->
+          <path d="M60,200 Q150,115 250,40" fill="none" stroke="#ff6b6b" stroke-width="2.5"/>
+          <!-- equilibrium point -->
+          <circle cx="158" cy="125" r="6" fill="#ffe066"/>
+          <!-- dashed lines -->
+          <line x1="40" y1="125" x2="158" y2="125" stroke="#ffe066" stroke-width="1" stroke-dasharray="4,3"/>
+          <line x1="158" y1="210" x2="158" y2="125" stroke="#ffe066" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="270" y="220" fill="#8b90b0" font-size="12" font-family="sans-serif">Q</text>
+          <text x="20" y="18" fill="#8b90b0" font-size="12" font-family="sans-serif">P</text>
+          <text x="200" y="80" fill="#ff9a9a" font-size="12" font-weight="bold" font-family="sans-serif">S</text>
+          <text x="220" y="180" fill="#a09fff" font-size="12" font-weight="bold" font-family="sans-serif">D</text>
+          <text x="162" y="118" fill="#ffe066" font-size="11" font-family="sans-serif">E (P*,Q*)</text>
+          <text x="10" y="129" fill="#ffe066" font-size="10" font-family="sans-serif">P*</text>
+          <text x="152" y="222" fill="#ffe066" font-size="10" font-family="sans-serif">Q*</text>
+        </svg>
+        <p style="font-size:12px; color:var(--muted); margin-top:8px">Titik E = Keseimbangan Pasar (intersection D dan S)</p>
+      </div>
+    </div>
+
+    <!-- CARA HITUNG -->
+    <div class="content-block">
+      <div class="block-title">Cara Menghitung Keseimbangan</div>
+      <div class="info-box">
+        <h4>📐 Metode Aljabar</h4>
+        <p><strong>Langkah:</strong> Samakan Qd = Qs, lalu selesaikan untuk P, kemudian substitusi balik.</p>
+        <br>
+        <p><strong>Contoh soal:</strong><br>
+        Qd = 100 − 2P<br>
+        Qs = −20 + 3P<br><br>
+        <strong>Langkah 1:</strong> Qd = Qs<br>
+        100 − 2P = −20 + 3P<br>
+        120 = 5P<br>
+        <span class="hl">P* = 24</span><br><br>
+        <strong>Langkah 2:</strong> Substitusi P=24 ke Qd:<br>
+        Qd = 100 − 2(24) = 100 − 48 = <span class="hl">Q* = 52</span></p>
+      </div>
+      <div class="tip-box">
+        <div class="tip-icon">⚡</div>
+        <p><strong>Cek:</strong> Selalu verifikasi dengan substitusi ke Qs juga → Qs = −20 + 3(24) = −20 + 72 = 52 ✓</p>
+      </div>
+    </div>
+
+    <!-- SURPLUS & SHORTAGE -->
+    <div class="content-block">
+      <div class="block-title">Surplus & Kekurangan (Shortage)</div>
+      <table class="comp-table">
+        <tr><th>Kondisi</th><th>Situasi</th><th>Akibat</th></tr>
+        <tr><td><span class="hl-g">Surplus</span> (kelebihan penawaran)</td><td>Harga > P* → Qs > Qd</td><td>Harga turun menuju P*</td></tr>
+        <tr><td><span class="hl-r">Shortage</span> (kekurangan)</td><td>Harga < P* → Qd > Qs</td><td>Harga naik menuju P*</td></tr>
+        <tr><td><span class="hl">Keseimbangan</span></td><td>Harga = P* → Qd = Qs</td><td>Tidak ada tekanan harga</td></tr>
+      </table>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-section">
+      <div class="block-title">🎯 Latihan Soal</div>
+      <div class="tag-soal">Tipe Soal ASAT</div>
+      <div class="quiz-q">
+        <div class="q-num">SOAL 1</div>
+        <div class="q-text">Diketahui Qd = 80 − 2P dan Qs = −10 + 3P. Harga keseimbangan pasar adalah...</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, '80−2P = −10+3P → 90 = 5P → P = 18')">A. P = 15</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, true, 'Benar! 80−2P = −10+3P → 90 = 5P → P* = 18, Q* = 80−2(18) = 44')">B. P = 18</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, '80−2P = −10+3P → 90 = 5P → P = 18')">C. P = 20</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, '80−2P = −10+3P → 90 = 5P → P = 18')">D. P = 24</div>
+        <div class="quiz-explanation"></div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-ghost" onclick="showPage('p2', null)">← Penawaran</button>
+      <button class="btn btn-primary" onclick="showPage('p4', null)">Jenis Pasar →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ PAGE 4: JENIS PASAR ══════════════════════ -->
+  <div class="page" id="page-p4">
+    <div class="sec-header">
+      <div class="sec-icon c4">🏪</div>
+      <div>
+        <h2>Jenis-Jenis Pasar</h2>
+        <p>Konsep pasar · Peran pasar · Struktur pasar persaingan</p>
+        <div class="kisi-tag">🎯 Kisi-kisi: 5 soal — identifikasi jenis & peran pasar</div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="block-title">Konsep & Peran Pasar</div>
+      <div class="def-box">
+        <div class="def-label">📖 Definisi</div>
+        <p><strong>Pasar</strong> adalah tempat bertemunya penjual dan pembeli untuk melakukan transaksi jual beli barang/jasa, tidak harus berupa tempat fisik.</p>
+      </div>
+      <div class="info-box">
+        <h4>🎯 Peran Pasar dalam Perekonomian</h4>
+        <ul>
+          <li>Tempat jual beli dan transaksi ekonomi</li>
+          <li>Membentuk harga melalui mekanisme permintaan dan penawaran</li>
+          <li>Mendistribusikan barang/jasa dari produsen ke konsumen</li>
+          <li>Sumber informasi harga bagi pelaku ekonomi</li>
+          <li>Mendorong inovasi dan efisiensi produksi</li>
+          <li>Sarana promosi produk bagi produsen</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- JENIS PASAR BERDASARKAN STRUKTUR -->
+    <div class="content-block">
+      <div class="block-title">Jenis Pasar Berdasarkan Struktur Persaingan</div>
+      <div class="accordion" onclick="toggleAcc(this)">
+        <div class="acc-head">
+          <span>🥇 Pasar Persaingan Sempurna</span><span class="arr">▼</span>
+        </div>
+        <div class="acc-body"><div class="acc-body-inner">
+          <strong>Ciri-ciri:</strong>
+          <ul>
+            <li>Banyak penjual dan pembeli</li>
+            <li>Produk homogen (identik)</li>
+            <li>Penjual dan pembeli adalah <em>price taker</em> (tidak bisa menentukan harga)</li>
+            <li>Bebas keluar masuk pasar</li>
+            <li>Informasi sempurna</li>
+          </ul>
+          <br><strong>Contoh:</strong> Pasar beras, pasar sayuran, pasar gandum dunia.
+        </div></div>
+      </div>
+      <div class="accordion" onclick="toggleAcc(this)">
+        <div class="acc-head">
+          <span>🏭 Pasar Monopoli</span><span class="arr">▼</span>
+        </div>
+        <div class="acc-body"><div class="acc-body-inner">
+          <strong>Ciri-ciri:</strong>
+          <ul>
+            <li>Hanya ada SATU penjual / produsen</li>
+            <li>Tidak ada barang substitusi dekat</li>
+            <li>Penjual adalah <em>price maker</em></li>
+            <li>Ada hambatan masuk pasar yang besar (barrier to entry)</li>
+          </ul>
+          <br><strong>Contoh di Indonesia:</strong> PLN (listrik), PDAM (air), KAI (kereta nasional).<br>
+          <span style="color:#ffe066">⚠️ Kata kunci soal: "satu-satunya penjual", "tidak ada substitusi", "menentukan harga sendiri"</span>
+        </div></div>
+      </div>
+      <div class="accordion" onclick="toggleAcc(this)">
+        <div class="acc-head">
+          <span>🏬 Pasar Oligopoli</span><span class="arr">▼</span>
+        </div>
+        <div class="acc-body"><div class="acc-body-inner">
+          <strong>Ciri-ciri:</strong>
+          <ul>
+            <li>Beberapa penjual (3–10 perusahaan) mendominasi</li>
+            <li>Produk bisa homogen atau diferensiasi</li>
+            <li>Saling ketergantungan (interdependensi) antar penjual</li>
+            <li>Hambatan masuk cukup tinggi</li>
+            <li>Ada kecenderungan kolusi/kartel</li>
+          </ul>
+          <br><strong>Contoh:</strong> Industri telekomunikasi (Telkomsel, Indosat, XL), industri semen, industri otomotif.
+        </div></div>
+      </div>
+      <div class="accordion" onclick="toggleAcc(this)">
+        <div class="acc-head">
+          <span>🛍️ Pasar Persaingan Monopolistik</span><span class="arr">▼</span>
+        </div>
+        <div class="acc-body"><div class="acc-body-inner">
+          <strong>Ciri-ciri:</strong>
+          <ul>
+            <li>Banyak penjual</li>
+            <li>Produk <em>terdiferensiasi</em> (mirip tapi tidak identik)</li>
+            <li>Keluar masuk pasar relatif mudah</li>
+            <li>Penjual punya sedikit kendali atas harga</li>
+            <li>Persaingan non-harga (merek, kualitas, iklan) aktif</li>
+          </ul>
+          <br><strong>Contoh:</strong> Restoran, salon, toko pakaian, kafe, produk kosmetik.
+        </div></div>
+      </div>
+      <div class="accordion" onclick="toggleAcc(this)">
+        <div class="acc-head">
+          <span>🧑‍💼 Pasar Monopsoni & Oligopsoni</span><span class="arr">▼</span>
+        </div>
+        <div class="acc-body"><div class="acc-body-inner">
+          <strong>Monopsoni:</strong> Hanya ada satu pembeli. Contoh: perusahaan besar yang satu-satunya pembeli hasil panen petani di daerah terpencil.<br><br>
+          <strong>Oligopsoni:</strong> Beberapa pembeli mendominasi. Contoh: beberapa perusahaan pengepul tembakau di suatu daerah.
+        </div></div>
+      </div>
+    </div>
+
+    <!-- TABEL PERBANDINGAN -->
+    <div class="content-block">
+      <div class="block-title">Tabel Perbandingan Cepat</div>
+      <table class="comp-table">
+        <tr><th>Struktur</th><th>Penjual</th><th>Produk</th><th>Harga</th></tr>
+        <tr><td>Persaingan Sempurna</td><td>Sangat banyak</td><td>Homogen</td><td>Price taker</td></tr>
+        <tr><td>Monopolistik</td><td>Banyak</td><td>Diferensiasi</td><td>Sedikit kontrol</td></tr>
+        <tr><td>Oligopoli</td><td>Beberapa</td><td>Homogen/beda</td><td>Price maker (terbatas)</td></tr>
+        <tr><td>Monopoli</td><td>Satu</td><td>Unik</td><td>Price maker penuh</td></tr>
+      </table>
+    </div>
+
+    <!-- PASAR BERDASARKAN JENIS BARANG -->
+    <div class="content-block">
+      <div class="block-title">Jenis Pasar Lainnya</div>
+      <div class="flashcard-grid">
+        <div class="flashcard" onclick="toggleCard(this)">
+          <div class="fc-hint">TAP ▾</div>
+          <div class="fc-q">🏗️ Pasar Faktor Produksi</div>
+          <div class="fc-a">Pasar yang memperjualbelikan faktor produksi: tenaga kerja (bursa kerja), modal (pasar modal), tanah, kewirausahaan.</div>
+        </div>
+        <div class="flashcard" onclick="toggleCard(this)">
+          <div class="fc-hint">TAP ▾</div>
+          <div class="fc-q">🍎 Pasar Barang/Produk</div>
+          <div class="fc-a">Pasar yang memperjualbelikan barang jadi/jasa untuk konsumen. Contoh: supermarket, pasar tradisional, marketplace online.</div>
+        </div>
+        <div class="flashcard" onclick="toggleCard(this)">
+          <div class="fc-hint">TAP ▾</div>
+          <div class="fc-q">🌐 Pasar Abstrak</div>
+          <div class="fc-a">Transaksi tanpa pertemuan fisik antara penjual dan pembeli. Contoh: pasar modal, pasar uang, e-commerce.</div>
+        </div>
+        <div class="flashcard" onclick="toggleCard(this)">
+          <div class="fc-hint">TAP ▾</div>
+          <div class="fc-q">🏪 Pasar Konkret</div>
+          <div class="fc-a">Transaksi terjadi di tempat fisik yang nyata. Contoh: pasar tradisional, swalayan, toko.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-section">
+      <div class="block-title">🎯 Latihan Soal</div>
+      <div class="tag-soal">Tipe Soal ASAT</div>
+      <div class="quiz-q">
+        <div class="q-num">SOAL 1</div>
+        <div class="q-text">Sebuah pasar memiliki ciri: produk identik/homogen, banyak penjual dan pembeli, tidak ada yang bisa mempengaruhi harga. Jenis pasar ini adalah...</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Monopolistik punya produk terdiferensiasi, bukan homogen.')">A. Pasar monopolistik</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, true, 'Benar! Ciri utama persaingan sempurna: banyak penjual, produk homogen, price taker.')">B. Pasar persaingan sempurna</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Oligopoli hanya punya beberapa penjual dominan.')">C. Pasar oligopoli</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Monopoli hanya ada satu penjual.')">D. Pasar monopoli</div>
+        <div class="quiz-explanation"></div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-ghost" onclick="showPage('p3', null)">← Keseimbangan</button>
+      <button class="btn btn-primary" onclick="showPage('p5', null)">Perbankan →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ PAGE 5: PERBANKAN ══════════════════════ -->
+  <div class="page" id="page-p5">
+    <div class="sec-header">
+      <div class="sec-icon c5">🏦</div>
+      <div>
+        <h2>Perbankan</h2>
+        <p>Bank Umum · BPR · Bank Sentral · Prinsip 5C</p>
+        <div class="kisi-tag">🎯 Kisi-kisi: 6 soal — fungsi bank, BPR, bank sentral, 5C kredit, kepemilikan</div>
+      </div>
+    </div>
+
+    <!-- DEFINISI & FUNGSI -->
+    <div class="content-block">
+      <div class="block-title">Fungsi Bank Secara Umum</div>
+      <div class="def-box">
+        <div class="def-label">📖 Definisi</div>
+        <p><strong>Bank</strong> adalah badan usaha yang menghimpun dana dari masyarakat dalam bentuk simpanan dan menyalurkannya dalam bentuk kredit atau bentuk lain guna meningkatkan taraf hidup masyarakat (UU No. 10/1998).</p>
+      </div>
+      <div class="info-box">
+        <h4>🎯 Fungsi Utama Bank</h4>
+        <ul>
+          <li><strong>Menghimpun dana</strong> (funding): tabungan, deposito, giro</li>
+          <li><strong>Menyalurkan dana</strong> (lending): kredit konsumtif, kredit modal kerja, kredit investasi</li>
+          <li><strong>Memberikan jasa</strong>: transfer, kliring, inkaso, safe deposit box, letter of credit</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- BANK UMUM vs BPR -->
+    <div class="content-block">
+      <div class="block-title">Bank Umum vs Bank Perkreditan Rakyat (BPR)</div>
+      <div class="tip-box">
+        <div class="tip-icon">⚠️</div>
+        <p><strong>Kisi-kisi minta:</strong> Kegiatan yang <em>TIDAK BISA</em> dilakukan BPR dibanding Bank Umum. Hafal perbedaannya!</p>
+      </div>
+      <table class="comp-table">
+        <tr><th>Kegiatan</th><th>Bank Umum</th><th>BPR</th></tr>
+        <tr><td>Giro (rekening giro)</td><td>✅ Bisa</td><td>❌ Tidak bisa</td></tr>
+        <tr><td>Valuta asing (valas)</td><td>✅ Bisa</td><td>❌ Tidak bisa</td></tr>
+        <tr><td>Kliring</td><td>✅ Bisa</td><td>❌ Tidak bisa</td></tr>
+        <tr><td>Asuransi</td><td>✅ Bisa</td><td>❌ Tidak bisa</td></tr>
+        <tr><td>Ikut dalam lalu lintas pembayaran</td><td>✅ Bisa</td><td>❌ Tidak bisa</td></tr>
+        <tr><td>Tabungan & Deposito</td><td>✅ Bisa</td><td>✅ Bisa</td></tr>
+        <tr><td>Kredit</td><td>✅ Bisa</td><td>✅ Bisa</td></tr>
+      </table>
+      <div class="tip-box">
+        <div class="tip-icon">🔑</div>
+        <p><strong>Hafal singkatan BPR dilarang: "GaVaKA"</strong> → <span class="hl">Ga</span>rio (giro), <span class="hl">Va</span>las, <span class="hl">K</span>liring, <span class="hl">A</span>suransi</p>
+      </div>
+    </div>
+
+    <!-- BANK SENTRAL -->
+    <div class="content-block">
+      <div class="block-title">Bank Sentral (Bank Indonesia)</div>
+      <div class="info-box">
+        <h4>🏛️ Fungsi Bank Indonesia</h4>
+        <ul>
+          <li>Menetapkan dan melaksanakan <strong>kebijakan moneter</strong> (mengatur jumlah uang beredar)</li>
+          <li>Mengatur dan menjaga <strong>kelancaran sistem pembayaran</strong></li>
+          <li>Mengatur dan mengawasi <strong>perbankan</strong> (sekarang beralih ke OJK)</li>
+          <li>Menjaga <strong>stabilitas nilai rupiah</strong> (inflasi)</li>
+          <li>Mengelola dan mengelola <strong>cadangan devisa</strong> negara</li>
+          <li>Mencetak, mengedarkan, dan menarik uang dari peredaran</li>
+          <li>Sebagai <strong>"lender of last resort"</strong> — pemberi pinjaman terakhir bagi bank yang kesulitan likuiditas</li>
+        </ul>
+      </div>
+      <div class="info-box">
+        <h4>⚙️ Instrumen Kebijakan Moneter BI</h4>
+        <ul>
+          <li><strong>BI Rate / BI7DRR</strong>: suku bunga acuan</li>
+          <li><strong>Operasi Pasar Terbuka</strong>: jual/beli SBI/SBIS</li>
+          <li><strong>Giro Wajib Minimum (GWM)</strong>: cadangan wajib bank di BI</li>
+          <li><strong>Fasilitas Diskonto</strong>: meminjamkan uang ke bank dengan bunga tertentu</li>
+          <li><strong>Imbauan Moral</strong>: persuasi kepada bank untuk ikuti kebijakan BI</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 5C KREDIT -->
+    <div class="content-block">
+      <div class="block-title">Prinsip Analisis Kredit — 5C</div>
+      <div class="tip-box">
+        <div class="tip-icon">🔑</div>
+        <p><strong>Hafal: Character, Capacity, Capital, Collateral, Condition</strong></p>
+      </div>
+      <div class="flashcard-grid">
+        <div class="flashcard" onclick="toggleCard(this)">
+          <div class="fc-hint">TAP ▾</div>
+          <div class="fc-q">1️⃣ Character (Karakter)</div>
+          <div class="fc-a">Watak/kepribadian debitur — apakah jujur, bertanggung jawab, punya reputasi baik dalam membayar utang. Dilihat dari BI Checking / SLIK.</div>
+        </div>
+        <div class="flashcard" onclick="toggleCard(this)">
+          <div class="fc-hint">TAP ▾</div>
+          <div class="fc-q">2️⃣ Capacity (Kapasitas)</div>
+          <div class="fc-a">Kemampuan debitur menghasilkan pendapatan dan membayar kembali kredit. Dilihat dari laporan keuangan, omset usaha.</div>
+        </div>
+        <div class="flashcard" onclick="toggleCard(this)">
+          <div class="fc-hint">TAP ▾</div>
+          <div class="fc-q">3️⃣ Capital (Modal)</div>
+          <div class="fc-a">Kekayaan/modal yang dimiliki debitur sendiri. Makin banyak modal sendiri, makin kecil risiko bagi bank.</div>
+        </div>
+        <div class="flashcard" onclick="toggleCard(this)">
+          <div class="fc-hint">TAP ▾</div>
+          <div class="fc-q">4️⃣ Collateral (Agunan)</div>
+          <div class="fc-a">Jaminan yang diserahkan debitur sebagai pengaman kredit. Contoh: sertifikat tanah, BPKB kendaraan.</div>
+        </div>
+        <div class="flashcard" onclick="toggleCard(this)">
+          <div class="fc-hint">TAP ▾</div>
+          <div class="fc-q">5️⃣ Condition (Kondisi)</div>
+          <div class="fc-a">Kondisi ekonomi saat pemberian kredit — apakah ekonomi sedang baik atau resesi. Mempengaruhi kemampuan bayar di masa depan.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JENIS BANK BERDASARKAN KEPEMILIKAN -->
+    <div class="content-block">
+      <div class="block-title">Jenis Bank Berdasarkan Kepemilikan Modal</div>
+      <table class="comp-table">
+        <tr><th>Jenis</th><th>Kepemilikan</th><th>Contoh</th></tr>
+        <tr><td>Bank Pemerintah</td><td>Negara / pemerintah pusat</td><td>BRI, BNI, Mandiri, BTN</td></tr>
+        <tr><td>Bank Swasta Nasional</td><td>WNI / badan hukum Indonesia</td><td>BCA, CIMB Niaga, Danamon</td></tr>
+        <tr><td>Bank Asing</td><td>WNA / badan hukum asing</td><td>Citibank, HSBC, Deutsche Bank</td></tr>
+        <tr><td>Bank Campuran</td><td>Patungan WNI + WNA</td><td>Bank UOB Indonesia, Bank Permata</td></tr>
+        <tr><td>Bank Pembangunan Daerah</td><td>Pemerintah daerah</td><td>Bank DKI, Bank Jatim, Bank Sumut</td></tr>
+      </table>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-section">
+      <div class="block-title">🎯 Latihan Soal</div>
+      <div class="tag-soal">Tipe Soal ASAT</div>
+      <div class="quiz-q">
+        <div class="q-num">SOAL 1</div>
+        <div class="q-text">Berikut ini yang TIDAK dapat dilakukan oleh Bank Perkreditan Rakyat (BPR) adalah...</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'BPR boleh menerima tabungan.')">A. Menerima tabungan dari nasabah</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'BPR boleh memberikan kredit.')">B. Memberikan kredit kepada masyarakat</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, true, 'Benar! BPR tidak boleh melakukan kegiatan dalam lalu lintas pembayaran seperti kliring, giro, dan transaksi valas.')">C. Melakukan kegiatan dalam lalu lintas pembayaran (kliring)</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'BPR boleh menerima deposito.')">D. Menerima simpanan berupa deposito berjangka</div>
+        <div class="quiz-explanation"></div>
+      </div>
+      <div class="quiz-q">
+        <div class="q-num">SOAL 2</div>
+        <div class="q-text">Dalam prinsip 5C, penilaian terhadap kemampuan debitur untuk menghasilkan pendapatan dan melunasi pinjaman disebut...</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Character adalah penilaian watak/kepribadian debitur.')">A. Character</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, true, 'Benar! Capacity adalah kemampuan menghasilkan pendapatan untuk membayar kredit.')">B. Capacity</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Capital adalah modal/kekayaan debitur sendiri.')">C. Capital</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Collateral adalah jaminan/agunan.')">D. Collateral</div>
+        <div class="quiz-explanation"></div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-ghost" onclick="showPage('p4', null)">← Jenis Pasar</button>
+      <button class="btn btn-primary" onclick="showPage('p6', null)">Sistem Pembayaran →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ PAGE 6: SISTEM PEMBAYARAN ══════════════════════ -->
+  <div class="page" id="page-p6">
+    <div class="sec-header">
+      <div class="sec-icon c6">💳</div>
+      <div>
+        <h2>Sistem Pembayaran</h2>
+        <p>QRIS · E-wallet vs E-money · Instrumen nontunai</p>
+        <div class="kisi-tag">🎯 Kisi-kisi: 3 soal — QRIS, fintech, perbedaan e-wallet vs e-money</div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="block-title">QRIS — Quick Response Code Indonesian Standard</div>
+      <div class="def-box">
+        <div class="def-label">📖 Singkatan Resmi</div>
+        <p><strong>QRIS = Quick Response Code Indonesian Standard</strong> — standar kode QR nasional yang ditetapkan oleh Bank Indonesia untuk semua penyedia jasa sistem pembayaran.</p>
+      </div>
+      <div class="info-box">
+        <h4>✨ Keunggulan QRIS</h4>
+        <ul>
+          <li>Satu kode QR untuk semua aplikasi pembayaran (GoPay, OVO, Dana, ShopeePay, dll)</li>
+          <li>Standarisasi nasional — berlaku di seluruh Indonesia</li>
+          <li>Transaksi lebih cepat dan mudah</li>
+          <li>Meningkatkan inklusi keuangan UMKM</li>
+          <li>Ditetapkan oleh Bank Indonesia sejak 1 Januari 2020</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- E-WALLET vs E-MONEY -->
+    <div class="content-block">
+      <div class="block-title">E-Wallet vs E-Money — Perbedaan Utama</div>
+      <div class="tip-box">
+        <div class="tip-icon">⚠️</div>
+        <p><strong>Ini sering jadi soal ujian!</strong> Banyak yang salah karena menganggap keduanya sama. Pahami perbedaan mendasarnya.</p>
+      </div>
+      <table class="comp-table">
+        <tr><th>Aspek</th><th>E-Wallet (Dompet Digital)</th><th>E-Money (Uang Elektronik)</th></tr>
+        <tr><td><strong>Penyimpanan dana</strong></td><td>Server/cloud (server based)</td><td>Kartu/chip fisik (card based)</td></tr>
+        <tr><td><strong>Registrasi</strong></td><td>Wajib daftar (registered)</td><td>Bisa tanpa identitas (unregistered)</td></tr>
+        <tr><td><strong>Akses</strong></td><td>Butuh internet/smartphone</td><td>Tidak butuh internet</td></tr>
+        <tr><td><strong>Contoh</strong></td><td>GoPay, OVO, DANA, ShopeePay, LinkAja</td><td>e-money BCA, Brizzi BRI, Flazz, TapCash BNI, Kartu Multi Trip (KMT) KAI</td></tr>
+        <tr><td><strong>Batas saldo</strong></td><td>Lebih tinggi (hingga Rp10 juta unverified, Rp20 juta verified)</td><td>Maks Rp2 juta (unregistered), Rp5 juta (registered)</td></tr>
+        <tr><td><strong>Penggunaan</strong></td><td>Online & offline (scan QR)</td><td>Umumnya tap kartu (offline)</td></tr>
+      </table>
+    </div>
+
+    <!-- FINTECH -->
+    <div class="content-block">
+      <div class="block-title">Financial Technology (FinTech)</div>
+      <div class="def-box">
+        <div class="def-label">📖 Definisi</div>
+        <p><strong>FinTech</strong> adalah inovasi di bidang keuangan yang memanfaatkan teknologi untuk mempermudah layanan keuangan — lebih cepat, murah, dan terjangkau.</p>
+      </div>
+      <div class="info-box">
+        <h4>✅ Keuntungan Menggunakan FinTech</h4>
+        <ul>
+          <li>Akses layanan keuangan lebih mudah (inklusif — termasuk daerah terpencil)</li>
+          <li>Transaksi lebih cepat dan hemat biaya</li>
+          <li>Tersedia 24/7 tanpa jam operasional</li>
+          <li>Mendorong cashless society (masyarakat bebas uang tunai)</li>
+          <li>Meningkatkan transparansi dan rekam jejak transaksi</li>
+          <li>Mempermudah akses pinjaman bagi UMKM (P2P Lending)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- INSTRUMEN PEMBAYARAN NONTUNAI -->
+    <div class="content-block">
+      <div class="block-title">Instrumen Pembayaran Nontunai</div>
+      <table class="comp-table">
+        <tr><th>Instrumen</th><th>Cara Kerja</th><th>Contoh</th></tr>
+        <tr><td>Kartu Debit</td><td>Langsung debet dari rekening tabungan</td><td>ATM/Debit BCA, BRI, Mandiri</td></tr>
+        <tr><td>Kartu Kredit</td><td>Pinjaman dari bank, dibayar belakangan</td><td>Visa, Mastercard</td></tr>
+        <tr><td>E-Money</td><td>Saldo di kartu chip/fisik</td><td>Flazz, Brizzi, e-money Mandiri</td></tr>
+        <tr><td>E-Wallet</td><td>Saldo di aplikasi smartphone</td><td>GoPay, OVO, DANA</td></tr>
+        <tr><td>Transfer bank</td><td>Pindah buku antar rekening</td><td>BI-FAST, RTGS, SKN</td></tr>
+        <tr><td>Cek/Bilyet Giro</td><td>Perintah bayar/pindahbuku tertulis</td><td>Cek BCA, Giro BNI</td></tr>
+      </table>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-section">
+      <div class="block-title">🎯 Latihan Soal</div>
+      <div class="tag-soal">Tipe Soal ASAT</div>
+      <div class="quiz-q">
+        <div class="q-num">SOAL 1</div>
+        <div class="q-text">QRIS merupakan kepanjangan dari...</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Bukan itu. QRIS = Quick Response Code Indonesian Standard.')">A. Quick Response Code Integration System</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, true, 'Benar! QRIS = Quick Response Code Indonesian Standard, standar kode QR nasional BI.')">B. Quick Response Code Indonesian Standard</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Bukan itu. QRIS = Quick Response Code Indonesian Standard.')">C. Quick Retail Code Indonesia System</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Bukan itu. QRIS = Quick Response Code Indonesian Standard.')">D. Quality Response Code Indonesian Standard</div>
+        <div class="quiz-explanation"></div>
+      </div>
+      <div class="quiz-q">
+        <div class="q-num">SOAL 2</div>
+        <div class="q-text">Perbedaan utama antara e-wallet dan e-money adalah...</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Keduanya bisa digunakan untuk membayar.')">A. E-wallet tidak bisa digunakan untuk membayar</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, true, 'Benar! E-wallet berbasis server/aplikasi (butuh internet), e-money berbasis kartu/chip (tidak butuh internet).')">B. E-wallet berbasis server/aplikasi, e-money berbasis kartu/chip</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Justru sebaliknya — e-money yang tidak butuh internet.')">C. E-money membutuhkan koneksi internet sedangkan e-wallet tidak</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'E-wallet justru perlu registrasi identitas.')">D. E-wallet tidak perlu registrasi identitas</div>
+        <div class="quiz-explanation"></div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-ghost" onclick="showPage('p5', null)">← Perbankan</button>
+      <button class="btn btn-primary" onclick="showPage('p7', null)">IKNB & OJK →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ PAGE 7: IKNB & OJK ══════════════════════ -->
+  <div class="page" id="page-p7">
+    <div class="sec-header">
+      <div class="sec-icon c7">🏛️</div>
+      <div>
+        <h2>IKNB & OJK</h2>
+        <p>Industri Keuangan Non-Bank · Pasar Modal · Otoritas Jasa Keuangan</p>
+        <div class="kisi-tag">🎯 Kisi-kisi: 7 soal — IKNB, pasar modal, peran & tujuan OJK</div>
+      </div>
+    </div>
+
+    <!-- IKNB -->
+    <div class="content-block">
+      <div class="block-title">Industri Keuangan Non-Bank (IKNB)</div>
+      <div class="def-box">
+        <div class="def-label">📖 Definisi</div>
+        <p>IKNB adalah lembaga keuangan selain bank yang menyediakan layanan keuangan. Kegiatan utama bukan menghimpun dana dalam bentuk simpanan/deposito seperti bank.</p>
+      </div>
+      <div class="accordion" onclick="toggleAcc(this)">
+        <div class="acc-head"><span>🛡️ Perusahaan Asuransi</span><span class="arr">▼</span></div>
+        <div class="acc-body"><div class="acc-body-inner">
+          Lembaga yang memberikan <strong>perlindungan dari risiko kerugian</strong> dengan sistem premi. Jenis: asuransi jiwa, asuransi kesehatan, asuransi kendaraan, asuransi properti.<br><br>
+          <strong>Contoh:</strong> Jiwasraya (jiwa), Asei (ekspor-impor), Jasindo, Prudential, Allianz.
+        </div></div>
+      </div>
+      <div class="accordion" onclick="toggleAcc(this)">
+        <div class="acc-head"><span>🏠 Dana Pensiun</span><span class="arr">▼</span></div>
+        <div class="acc-body"><div class="acc-body-inner">
+          Lembaga yang <strong>mengelola program pensiun</strong> — menghimpun iuran dari karyawan/pemberi kerja untuk dibayarkan saat pensiun.<br><br>
+          <strong>Jenis:</strong> Dana Pensiun Pemberi Kerja (DPPK) dan Dana Pensiun Lembaga Keuangan (DPLK).<br>
+          <strong>Contoh:</strong> BPJS Ketenagakerjaan (Jaminan Hari Tua), DPLK Bank Mandiri.
+        </div></div>
+      </div>
+      <div class="accordion" onclick="toggleAcc(this)">
+        <div class="acc-head"><span>💰 Perusahaan Pembiayaan (Leasing)</span><span class="arr">▼</span></div>
+        <div class="acc-body"><div class="acc-body-inner">
+          Lembaga yang menyediakan <strong>pembiayaan barang modal/konsumsi</strong> dengan cicilan. Tidak boleh menghimpun dana langsung dari masyarakat (seperti tabungan).<br><br>
+          <strong>Contoh:</strong> Adira Finance, FIF (Federal International Finance), WOM Finance, Mandiri Tunas Finance.
+        </div></div>
+      </div>
+      <div class="accordion" onclick="toggleAcc(this)">
+        <div class="acc-head"><span>🏗️ Perusahaan Modal Ventura</span><span class="arr">▼</span></div>
+        <div class="acc-body"><div class="acc-body-inner">
+          Memberikan <strong>modal kepada perusahaan kecil yang punya potensi tinggi</strong> (startup) dengan imbalan kepemilikan saham. Berbeda dengan bank/leasing karena menanggung risiko bersama.<br><br>
+          <strong>Contoh:</strong> MDI Ventures (Telkom), Mandiri Capital Indonesia, Kejora Capital.
+        </div></div>
+      </div>
+      <div class="accordion" onclick="toggleAcc(this)">
+        <div class="acc-head"><span>🏛️ Pegadaian</span><span class="arr">▼</span></div>
+        <div class="acc-body"><div class="acc-body-inner">
+          Lembaga yang menyalurkan <strong>pinjaman berdasarkan jaminan barang bergerak</strong> (gadai). Tujuan: membantu masyarakat mendapat pinjaman cepat tanpa prosedur rumit.<br><br>
+          Di Indonesia: <strong>PT Pegadaian (Persero)</strong> — BUMN di bawah supervisi OJK.
+        </div></div>
+      </div>
+      <div class="accordion" onclick="toggleAcc(this)">
+        <div class="acc-head"><span>📊 Reksa Dana</span><span class="arr">▼</span></div>
+        <div class="acc-body"><div class="acc-body-inner">
+          <strong>Wadah investasi kolektif</strong> di mana dana investor dikelola oleh Manajer Investasi (MI) dan diinvestasikan ke berbagai efek (saham, obligasi, deposito).<br><br>
+          <strong>Jenis:</strong> Reksa Dana Saham, Obligasi, Pasar Uang, Campuran, Indeks, ETF.<br>
+          <strong>Keunggulan:</strong> Modal kecil bisa mulai investasi (mulai Rp10.000).
+        </div></div>
+      </div>
+    </div>
+
+    <!-- PASAR MODAL -->
+    <div class="content-block">
+      <div class="block-title">Pasar Modal Indonesia (IDX/BEI)</div>
+      <div class="def-box">
+        <div class="def-label">📖 Definisi</div>
+        <p><strong>Pasar Modal</strong> adalah pasar yang memperjualbelikan instrumen keuangan jangka panjang (saham, obligasi, reksa dana). Di Indonesia dikelola oleh <strong>PT Bursa Efek Indonesia (BEI/IDX)</strong>.</p>
+      </div>
+      <div class="info-box">
+        <h4>🎯 Peran BEI (Bursa Efek Indonesia)</h4>
+        <ul>
+          <li>Menyediakan sarana perdagangan efek (saham, obligasi)</li>
+          <li>Menghubungkan perusahaan (emiten) dengan investor</li>
+          <li>Membentuk harga efek secara fair & transparan</li>
+          <li>Meningkatkan akses pendanaan jangka panjang bagi perusahaan</li>
+          <li>Mendorong pertumbuhan ekonomi nasional</li>
+        </ul>
+      </div>
+      <div class="info-box">
+        <h4>📋 Pelaku Pasar Modal</h4>
+        <ul>
+          <li><strong>Emiten</strong>: perusahaan yang menerbitkan saham/obligasi</li>
+          <li><strong>Investor</strong>: pihak yang membeli efek</li>
+          <li><strong>Manajer Investasi (MI)</strong>: pengelola reksa dana</li>
+          <li><strong>Perusahaan Efek</strong>: broker/dealer</li>
+          <li><strong>Kustodian</strong>: penyimpan efek (KSEI)</li>
+          <li><strong>OJK</strong>: regulator/pengawas</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- OJK -->
+    <div class="content-block">
+      <div class="block-title">Otoritas Jasa Keuangan (OJK)</div>
+      <div class="def-box">
+        <div class="def-label">📖 Definisi</div>
+        <p><strong>OJK</strong> adalah lembaga negara independen yang berfungsi menyelenggarakan pengaturan dan pengawasan yang terintegrasi terhadap seluruh kegiatan di sektor jasa keuangan (UU No. 21/2011).</p>
+      </div>
+      <div class="info-box">
+        <h4>🎯 Tujuan Pembentukan OJK</h4>
+        <ul>
+          <li>Agar kegiatan sektor jasa keuangan terselenggara secara <strong>teratur, adil, transparan, dan akuntabel</strong></li>
+          <li>Mewujudkan sistem keuangan yang tumbuh secara <strong>berkelanjutan dan stabil</strong></li>
+          <li>Melindungi kepentingan <strong>konsumen dan masyarakat</strong></li>
+        </ul>
+      </div>
+      <div class="info-box">
+        <h4>⚙️ Fungsi & Tugas OJK</h4>
+        <ul>
+          <li><strong>Mengatur dan mengawasi</strong> perbankan (setelah dialihkan dari BI)</li>
+          <li><strong>Mengatur dan mengawasi</strong> pasar modal</li>
+          <li><strong>Mengatur dan mengawasi</strong> IKNB (asuransi, dana pensiun, leasing, dll)</li>
+          <li><strong>Perlindungan konsumen</strong> — menangani pengaduan nasabah</li>
+          <li>Edukasi dan literasi keuangan masyarakat</li>
+        </ul>
+      </div>
+      <div class="tip-box">
+        <div class="tip-icon">⚠️</div>
+        <p><strong>Yang BUKAN tujuan OJK:</strong> Menetapkan kebijakan moneter, mencetak uang, menentukan suku bunga acuan — itu adalah tugas <span class="hl">Bank Indonesia</span>, bukan OJK!</p>
+      </div>
+      <table class="comp-table">
+        <tr><th>OJK</th><th>Bank Indonesia</th></tr>
+        <tr><td>Mengawasi lembaga keuangan (bank, asuransi, pasar modal)</td><td>Menetapkan kebijakan moneter</td></tr>
+        <tr><td>Melindungi konsumen jasa keuangan</td><td>Menjaga stabilitas nilai rupiah</td></tr>
+        <tr><td>Mengatur industri keuangan non-bank</td><td>Mengatur sistem pembayaran nasional</td></tr>
+        <tr><td>Mengeluarkan izin usaha bank</td><td>Mencetak dan mengedarkan uang</td></tr>
+      </table>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-section">
+      <div class="block-title">🎯 Latihan Soal</div>
+      <div class="tag-soal">Tipe Soal ASAT</div>
+      <div class="quiz-q">
+        <div class="q-num">SOAL 1</div>
+        <div class="q-text">Berikut yang merupakan tujuan pembentukan OJK adalah...</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Menetapkan BI Rate adalah tugas Bank Indonesia, bukan OJK.')">A. Menetapkan suku bunga acuan (BI Rate)</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Mencetak uang adalah tugas Bank Indonesia.')">B. Mencetak dan mengedarkan uang rupiah</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, true, 'Benar! Melindungi konsumen dan masyarakat adalah salah satu tujuan utama OJK.')">C. Melindungi kepentingan konsumen dan masyarakat di sektor jasa keuangan</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Menjaga nilai tukar rupiah adalah tugas Bank Indonesia.')">D. Menjaga stabilitas nilai tukar rupiah</div>
+        <div class="quiz-explanation"></div>
+      </div>
+      <div class="quiz-q">
+        <div class="q-num">SOAL 2</div>
+        <div class="q-text">Lembaga keuangan yang memberikan pinjaman dengan jaminan barang bergerak seperti perhiasan dan elektronik adalah...</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Leasing lebih untuk pembiayaan kepemilikan barang modal, bukan gadai.')">A. Leasing</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Reksa dana adalah wadah investasi, bukan pinjaman.')">B. Reksa Dana</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, true, 'Benar! Pegadaian adalah lembaga yang memberikan pinjaman berbasis jaminan/gadai barang bergerak.')">C. Pegadaian</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Modal ventura memberikan modal kepada perusahaan startup, bukan pinjaman gadai.')">D. Modal Ventura</div>
+        <div class="quiz-explanation"></div>
+      </div>
+      <div class="quiz-q">
+        <div class="q-num">SOAL 3</div>
+        <div class="q-text">Yang BUKAN merupakan tujuan pembentukan OJK adalah...</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Ini adalah tujuan OJK yang sah.')">A. Agar kegiatan sektor jasa keuangan terselenggara secara teratur dan transparan</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Ini adalah tujuan OJK yang sah.')">B. Mewujudkan sistem keuangan yang tumbuh berkelanjutan dan stabil</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, false, 'Ini adalah tujuan OJK yang sah.')">C. Melindungi kepentingan konsumen dan masyarakat</div>
+        <div class="quiz-opt" onclick="answerQuiz(this, true, 'Benar! Menetapkan kebijakan moneter BUKAN tujuan OJK — itu tugas Bank Indonesia.')">D. Menetapkan dan melaksanakan kebijakan moneter</div>
+        <div class="quiz-explanation"></div>
+      </div>
+    </div>
+
+    <!-- CHECKLIST RINGKASAN -->
+    <div class="content-block" style="margin-top:32px">
+      <div class="block-title">✅ Checklist Materi yang Sudah Dipelajari</div>
+      <div class="checklist" id="checklist">
+        <label class="check-item"><input type="checkbox" onchange="updateChecklist(this)"><label>Jenis-jenis permintaan (efektif, potensial, absolut)</label></label>
+        <label class="check-item"><input type="checkbox" onchange="updateChecklist(this)"><label>Faktor yang mempengaruhi permintaan (PHISTEN)</label></label>
+        <label class="check-item"><input type="checkbox" onchange="updateChecklist(this)"><label>Kurva permintaan dan penawaran</label></label>
+        <label class="check-item"><input type="checkbox" onchange="updateChecklist(this)"><label>Fungsi permintaan dan penawaran (matematis)</label></label>
+        <label class="check-item"><input type="checkbox" onchange="updateChecklist(this)"><label>Cara menghitung harga & jumlah keseimbangan</label></label>
+        <label class="check-item"><input type="checkbox" onchange="updateChecklist(this)"><label>Jenis-jenis pasar (sempurna, monopoli, oligopoli, monopolistik)</label></label>
+        <label class="check-item"><input type="checkbox" onchange="updateChecklist(this)"><label>Fungsi bank umum vs BPR (yang tidak bisa dilakukan BPR)</label></label>
+        <label class="check-item"><input type="checkbox" onchange="updateChecklist(this)"><label>Prinsip 5C analisis kredit</label></label>
+        <label class="check-item"><input type="checkbox" onchange="updateChecklist(this)"><label>Fungsi bank sentral (Bank Indonesia)</label></label>
+        <label class="check-item"><input type="checkbox" onchange="updateChecklist(this)"><label>QRIS — kepanjangan dan fungsinya</label></label>
+        <label class="check-item"><input type="checkbox" onchange="updateChecklist(this)"><label>Perbedaan e-wallet vs e-money</label></label>
+        <label class="check-item"><input type="checkbox" onchange="updateChecklist(this)"><label>Jenis-jenis IKNB (asuransi, dana pensiun, leasing, pegadaian)</label></label>
+        <label class="check-item"><input type="checkbox" onchange="updateChecklist(this)"><label>Peran BEI (pasar modal)</label></label>
+        <label class="check-item"><input type="checkbox" onchange="updateChecklist(this)"><label>Tujuan OJK dan yang BUKAN tujuan OJK</label></label>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-ghost" onclick="showPage('p6', null)">← Sistem Pembayaran</button>
+      <button class="btn btn-primary" onclick="showPage('home', null)">🏠 Beranda</button>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  let visited = new Set();
+
+  function showPage(id, navEl) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    if (navEl) {
+      navEl.classList.add('active');
+    } else {
+      const items = document.querySelectorAll('.nav-item');
+      const map = {home:0,p1:1,p2:2,p3:3,p4:4,p5:5,p6:6,p7:7};
+      if (map[id] !== undefined) items[map[id]].classList.add('active');
+    }
+    if (id !== 'home') visited.add(id);
+    updateProgress();
+    window.scrollTo({top:0, behavior:'smooth'});
+    document.getElementById('nav').classList.remove('open');
+  }
+
+  function updateProgress() {
+    const total = 7;
+    const done = visited.size;
+    document.getElementById('prog-fill').style.width = (done/total*100) + '%';
+    document.getElementById('prog-text').textContent = done + ' / ' + total + ' selesai';
+  }
+
+  function toggleCard(el) {
+    el.classList.toggle('open');
+  }
+
+  function toggleAcc(el) {
+    el.classList.toggle('open');
+  }
+
+  function toggleNav() {
+    document.getElementById('nav').classList.toggle('open');
+  }
+
+  function answerQuiz(opt, correct, explanation) {
+    const quizQ = opt.closest('.quiz-q');
+    if (quizQ.dataset.answered) return;
+    quizQ.dataset.answered = 'true';
+    const opts = quizQ.querySelectorAll('.quiz-opt');
+    opts.forEach(o => o.style.pointerEvents = 'none');
+    if (correct) {
+      opt.classList.add('correct');
+      opt.innerHTML = '✅ ' + opt.innerHTML;
+    } else {
+      opt.classList.add('wrong');
+      opt.innerHTML = '❌ ' + opt.innerHTML;
+    }
+    const exp = quizQ.querySelector('.quiz-explanation');
+    exp.textContent = (correct ? '✅ ' : '💡 ') + explanation;
+    exp.classList.add('show');
+  }
+
+  function updateChecklist(cb) {
+    cb.closest('.check-item').classList.toggle('checked', cb.checked);
+  }
+</script>
+</body>
+</html>
